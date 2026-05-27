@@ -1,0 +1,63 @@
+import AppShell from "@/components/layout/app-shell"
+import Card from "@/components/ui/card"
+import Button from "@/components/ui/button"
+
+export default function BillingPage() {
+  return (
+      <AppShell title="New Invoice">
+
+            <Card>
+
+                    <div className="space-y-5">
+
+                              <div>
+                                          <label className="text-sm text-gray-500">
+                                                        Item Name
+                                                                    </label>
+
+                                                                                <input
+                                                                                              type="text"
+                                                                                                            placeholder="Tea"
+                                                                                                                          className="w-full mt-2 border border-gray-300 rounded-2xl p-4 outline-none"
+                                                                                                                                      />
+                                                                                                                                                </div>
+
+                                                                                                                                                          <div className="grid grid-cols-2 gap-3">
+
+                                                                                                                                                                      <div>
+                                                                                                                                                                                    <label className="text-sm text-gray-500">
+                                                                                                                                                                                                    Quantity
+                                                                                                                                                                                                                  </label>
+
+                                                                                                                                                                                                                                <input
+                                                                                                                                                                                                                                                type="number"
+                                                                                                                                                                                                                                                                defaultValue={1}
+                                                                                                                                                                                                                                                                                className="w-full mt-2 border border-gray-300 rounded-2xl p-4 outline-none"
+                                                                                                                                                                                                                                                                                              />
+                                                                                                                                                                                                                                                                                                          </div>
+
+                                                                                                                                                                                                                                                                                                                      <div>
+                                                                                                                                                                                                                                                                                                                                    <label className="text-sm text-gray-500">
+                                                                                                                                                                                                                                                                                                                                                    Price
+                                                                                                                                                                                                                                                                                                                                                                  </label>
+
+                                                                                                                                                                                                                                                                                                                                                                                <input
+                                                                                                                                                                                                                                                                                                                                                                                                type="number"
+                                                                                                                                                                                                                                                                                                                                                                                                                placeholder="0.00"
+                                                                                                                                                                                                                                                                                                                                                                                                                                className="w-full mt-2 border border-gray-300 rounded-2xl p-4 outline-none"
+                                                                                                                                                                                                                                                                                                                                                                                                                                              />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                          </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <Button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Finalize Invoice
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </Button>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </Card>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </AppShell>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        )
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
