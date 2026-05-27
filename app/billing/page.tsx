@@ -4,6 +4,7 @@ import { useState } from "react"
 import AppShell from "@/components/layout/app-shell"
 import Card from "@/components/ui/card"
 import Button from "@/components/ui/button"
+import { calculateTax } from "@/lib/tax"
 
 type CartItem = {
   id: number
@@ -15,6 +16,9 @@ type CartItem = {
 export default function BillingPage() {
 
   const [cart, setCart] = useState<CartItem[]>([])
+
+  const taxRate = 5
+  const taxMode = "INCLUSIVE"
 
   const items = [
     {
@@ -68,9 +72,7 @@ export default function BillingPage() {
     0
   )
 
-  const gst = subtotal * 0.05
-
-  const total = subtotal + gst
+  const tax = calculateTax(subtotal, taxRate, taxMode)
 
   return (
     <AppShell title="Billing">
@@ -162,13 +164,18 @@ export default function BillingPage() {
             </div>
 
             <div className="flex justify-between">
-              <span>GST (5%)</span>
-              <span>₹{gst.toFixed(2)}</span>
+              <span>Taxable Amount</span>
+              <span>₹{tax.taxableAmount.toFixed(2)}</span>
             </div>
 
-            <div className="flex justify-between text-lg font-bold">
+            <div className="flex justify-between">
+              <span>GST (5%)</span>
+              <span>₹{tax.taxAmount.toFixed(2)}</span>
+            </div>
+
+            <div className="flex justify-between text-lg font-bold text-emerald-600">
               <span>Total</span>
-              <span>₹{total.toFixed(2)}</span>
+              <span>₹{tax.total.toFixed(2)}</span>
             </div>
 
             <Button>
