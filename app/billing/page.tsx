@@ -1,9 +1,12 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+
 import AppShell from "@/components/layout/app-shell"
 import Card from "@/components/ui/card"
 import Button from "@/components/ui/button"
+
 import { calculateTax } from "@/lib/tax"
 
 type CartItem = {
@@ -14,6 +17,8 @@ type CartItem = {
 }
 
 export default function BillingPage() {
+
+  const router = useRouter()
 
   const [cart, setCart] = useState<CartItem[]>([])
 
@@ -74,6 +79,25 @@ export default function BillingPage() {
 
   const tax = calculateTax(subtotal, taxRate, taxMode)
 
+  const finalizeInvoice = () => {
+
+    const invoiceData = {
+      items: cart,
+      subtotal,
+      taxableAmount: tax.taxableAmount,
+      taxAmount: tax.taxAmount,
+      total: tax.total,
+      paymentMethod: "Cash",
+      taxMode,
+    }
+
+    const encoded = encodeURIComponent(
+      JSON.stringify(invoiceData)
+    )
+
+    router.push(`/invoice?data=${encoded}`)
+  }
+
   return (
     <AppShell title="Billing">
 
@@ -94,8 +118,9 @@ export default function BillingPage() {
                 <button
                   key={item.id}
                   onClick={() => addToCart(item)}
-                  className="border border-gray-300 rounded-2xl p-4 text-left bg-white"
+                  className="border border-gray-300 rounded-2xl p-4 text-left bg-white active:scale-[0.98] transition"
                 >
+
                   <p className="font-semibold">
                     {item.name}
                   </p>
@@ -103,6 +128,7 @@ export default function BillingPage() {
                   <p className="text-sm text-gray-500 mt-1">
                     ₹{item.price}
                   </p>
+
                 </button>
 
               ))}
@@ -133,7 +159,9 @@ export default function BillingPage() {
                 key={item.id}
                 className="flex items-center justify-between border-b border-gray-200 pb-3"
               >
+
                 <div>
+
                   <p className="font-medium">
                     {item.name}
                   </p>
@@ -141,11 +169,13 @@ export default function BillingPage() {
                   <p className="text-sm text-gray-500">
                     Qty: {item.quantity}
                   </p>
+
                 </div>
 
                 <p className="font-semibold">
                   ₹{item.price * item.quantity}
                 </p>
+
               </div>
 
             ))}
@@ -165,22 +195,33 @@ export default function BillingPage() {
 
             <div className="flex justify-between">
               <span>Taxable Amount</span>
-              <span>₹{tax.taxableAmount.toFixed(2)}</span>
+              <span>
+                ₹{tax.taxableAmount.toFixed(2)}
+              </span>
             </div>
 
             <div className="flex justify-between">
               <span>GST (5%)</span>
-              <span>₹{tax.taxAmount.toFixed(2)}</span>
+              <span>
+                ₹{tax.taxAmount.toFixed(2)}
+              </span>
             </div>
 
-            <div className="flex justify-between text-lg font-bold text-emerald-600">
+            <div className="flex justify-between text-2xl font-bold tracking-tight text-emerald-600 pt-2">
+
               <span>Total</span>
-              <span>₹{tax.total.toFixed(2)}</span>
+
+              <span>
+                ₹{tax.total.toFixed(2)}
+              </span>
+
             </div>
 
-            <Button>
-              Finalize Invoice
-            </Button>
+            <div onClick={finalizeInvoice}>
+              <Button>
+                Finalize Invoice
+              </Button>
+            </div>
 
           </div>
 
