@@ -21,11 +21,20 @@ export default function InvoicePage() {
     invoiceNumber: "INV-1001",
     uuid: "AMN-INV-UUID-001",
     status: "PAID",
-    paymentMethod: parsedInvoice?.paymentMethod || "Cash",
-    taxMode: parsedInvoice?.taxMode || "INCLUSIVE",
+
+    paymentMethod:
+      parsedInvoice?.paymentMethod || "Cash",
+
+    taxMode:
+      parsedInvoice?.taxMode || "INCLUSIVE",
+
     date: new Date().toLocaleDateString(),
 
-    items: parsedInvoice?.items || [],
+    printedAt:
+      new Date().toLocaleString(),
+
+    items:
+      parsedInvoice?.items || [],
 
     taxableAmount:
       parsedInvoice?.taxableAmount || 0,
@@ -40,9 +49,9 @@ export default function InvoicePage() {
   return (
     <main className="min-h-screen bg-[#F5F5F5] p-4">
 
-      <div className="max-w-lg mx-auto bg-white rounded-3xl shadow-sm p-6 space-y-6">
+      <div className="max-w-sm mx-auto bg-white rounded-3xl shadow-sm p-6 space-y-6">
 
-        <div className="text-center border-b pb-4 space-y-2">
+        <div className="text-center border-b border-dashed pb-4 space-y-2">
 
           <h1 className="text-2xl font-bold text-[#111111]">
             {invoice.businessName}
@@ -69,6 +78,7 @@ export default function InvoicePage() {
         <div className="space-y-2 text-sm">
 
           <div className="flex justify-between">
+
             <span className="text-gray-500">
               Invoice No
             </span>
@@ -76,9 +86,11 @@ export default function InvoicePage() {
             <span className="font-medium">
               {invoice.invoiceNumber}
             </span>
+
           </div>
 
           <div className="flex justify-between">
+
             <span className="text-gray-500">
               Date
             </span>
@@ -86,9 +98,23 @@ export default function InvoicePage() {
             <span>
               {invoice.date}
             </span>
+
           </div>
 
           <div className="flex justify-between">
+
+            <span className="text-gray-500">
+              Printed
+            </span>
+
+            <span>
+              {invoice.printedAt}
+            </span>
+
+          </div>
+
+          <div className="flex justify-between">
+
             <span className="text-gray-500">
               Country
             </span>
@@ -96,9 +122,11 @@ export default function InvoicePage() {
             <span>
               {invoice.country}
             </span>
+
           </div>
 
           <div className="flex justify-between">
+
             <span className="text-gray-500">
               Payment
             </span>
@@ -106,9 +134,11 @@ export default function InvoicePage() {
             <span>
               {invoice.paymentMethod}
             </span>
+
           </div>
 
           <div className="flex justify-between">
+
             <span className="text-gray-500">
               Tax Mode
             </span>
@@ -116,6 +146,7 @@ export default function InvoicePage() {
             <span>
               {invoice.taxMode}
             </span>
+
           </div>
 
         </div>
@@ -163,7 +194,7 @@ export default function InvoicePage() {
 
         </div>
 
-        <div className="space-y-3 border-t pt-4">
+        <div className="space-y-3 border-t border-dashed pt-4">
 
           <div className="flex justify-between text-sm">
 
@@ -203,7 +234,14 @@ export default function InvoicePage() {
 
         </div>
 
-        <div className="border-t pt-4 text-center space-y-2">
+        <div className="border-t border-dashed pt-4 text-center space-y-3">
+
+          <button
+            onClick={() => window.print()}
+            className="w-full bg-black text-white py-3 rounded-2xl font-medium"
+          >
+            Print Invoice
+          </button>
 
           <p className="text-sm text-gray-500">
             Thank you for your purchase
